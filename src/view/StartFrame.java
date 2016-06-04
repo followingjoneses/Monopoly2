@@ -55,8 +55,18 @@ public class StartFrame extends JFrame {
                 addMouseListener(new MouseAdapter(){
                     @Override
                     public void mouseClicked(MouseEvent e){
-
-                        frame.dispose();;
+                        String input = JOptionPane.showInputDialog(frame, "请输入玩家人数(2-4)", "设置", JOptionPane.WARNING_MESSAGE);
+                        try {
+                            int playerNumber = Integer.parseInt(input);
+                            if (playerNumber<2 || playerNumber>4)
+                                throw new NumberFormatException();
+                            else {
+                                new SettingFrame(playerNumber);
+                                frame.dispose();
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(frame, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 });
             }
