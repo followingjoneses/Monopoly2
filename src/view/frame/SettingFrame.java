@@ -1,10 +1,10 @@
-package view;
+package view.frame;
+
+import static game.Game.getInstance;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 /**
  * Created by jzl on 16/6/4.
@@ -58,7 +58,12 @@ public class SettingFrame extends JFrame {
                             }
                         }
                         if (go) {
-
+                            getInstance().setLifeTime(day);
+                            String[] names = new String[playerNumber];
+                            for (int i=0;i<names.length;i++) {
+                                names[i] = playerTextFields[i].getText();
+                            }
+                            getInstance().setPlayerNames(names);
                         } else {
                             JOptionPane.showMessageDialog(frame, "请输入玩家姓名", "错误", JOptionPane.ERROR_MESSAGE);
                         }

@@ -1,4 +1,6 @@
-package view;
+package view.frame;
+
+import static game.Game.getInstance;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,6 +63,7 @@ public class StartFrame extends JFrame {
                             if (playerNumber<2 || playerNumber>4)
                                 throw new NumberFormatException();
                             else {
+                                getInstance().setPlayerNumber(playerNumber);
                                 new SettingFrame(playerNumber);
                                 frame.dispose();
                             }
