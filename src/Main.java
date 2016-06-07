@@ -1,4 +1,4 @@
-import view.StartFrame;
+import view.frame.MainFrame;
 
 /**
  * Created by jzl on 16/4/2.
@@ -10,6 +10,6 @@ public class Main {
 //        game.setPlayerNames();
 //        game.setLifeTime();
 //        game.startGame();
-        new StartFrame();
+        new MainFrame();
     }
 }

@@ -1,7 +1,7 @@
 package view.panel;
 
 import game.Map;
-import view.label.MapLabel;
+import view.label.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,13 +26,118 @@ public class MapPanel extends JPanel {
 
     public MapPanel(char[][] map) {
         setLayout(null);
+        setSize(900, 400);
         int k=0;
-        for (int i=0;i<map.length;i++) {
-            for (int j=0;j<map[i].length;j++) {
-                switch (map[i][j]) {
-                    
-                }
+        for (int i=0;i<map[0].length;i++) {
+            switch (map[0][i]) {
+                case '◎':
+                    mapLabels[k] = new LandLabel(-1, 0);
+                    break;
+                case '新':
+                    mapLabels[k] = new NewsCentreLabel();
+                    break;
+                case '银':
+                    mapLabels[k] = new BankLabel();
+                    break;
+                case '券':
+                    mapLabels[k] = new PointGetterLabel();
+                    break;
+                case '道':
+                    mapLabels[k] = new ItemShopLabel();
+                    break;
+                case '卡':
+                    mapLabels[k] = new ItemGetterLabel();
+                    break;
+                case '空':
+                    mapLabels[k] = new OpeningLabel();
+                    break;
             }
+            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
+            add(mapLabels[k++]);
+        }
+        for (int i=1;i<map.length-1;i++) {
+            switch (map[i][Map.MAP_WIDTH-1]) {
+                case '◎':
+                    mapLabels[k] = new LandLabel(-1, 0);
+                    break;
+                case '新':
+                    mapLabels[k] = new NewsCentreLabel();
+                    break;
+                case '银':
+                    mapLabels[k] = new BankLabel();
+                    break;
+                case '券':
+                    mapLabels[k] = new PointGetterLabel();
+                    break;
+                case '道':
+                    mapLabels[k] = new ItemShopLabel();
+                    break;
+                case '卡':
+                    mapLabels[k] = new ItemGetterLabel();
+                    break;
+                case '空':
+                    mapLabels[k] = new OpeningLabel();
+                    break;
+            }
+            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
+            add(mapLabels[k++]);
+        }
+        for (int i=map[Map.MAP_HEIGHT-1].length-1;i>=0;i--) {
+            switch (map[Map.MAP_HEIGHT-1][i]) {
+                case '◎':
+                    mapLabels[k] = new LandLabel(-1, 0);
+                    break;
+                case '新':
+                    mapLabels[k] = new NewsCentreLabel();
+                    break;
+                case '银':
+                    mapLabels[k] = new BankLabel();
+                    break;
+                case '券':
+                    mapLabels[k] = new PointGetterLabel();
+                    break;
+                case '道':
+                    mapLabels[k] = new ItemShopLabel();
+                    break;
+                case '卡':
+                    mapLabels[k] = new ItemGetterLabel();
+                    break;
+                case '空':
+                    mapLabels[k] = new OpeningLabel();
+                    break;
+            }
+            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
+            add(mapLabels[k++]);
+        }
+        for (int i=Map.MAP_HEIGHT-2;i>0;i--) {
+            switch (map[i][0]) {
+                case '◎':
+                    mapLabels[k] = new LandLabel(-1, 0);
+                    break;
+                case '新':
+                    mapLabels[k] = new NewsCentreLabel();
+                    break;
+                case '银':
+                    mapLabels[k] = new BankLabel();
+                    break;
+                case '券':
+                    mapLabels[k] = new PointGetterLabel();
+                    break;
+                case '道':
+                    mapLabels[k] = new ItemShopLabel();
+                    break;
+                case '卡':
+                    mapLabels[k] = new ItemGetterLabel();
+                    break;
+                case '空':
+                    mapLabels[k] = new OpeningLabel();
+                    break;
+                case '彩':
+                    mapLabels[k] = new LotteryHouseLabel();
+                    break;
+            }
+            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
+            add(mapLabels[k++]);
         }
     }
 

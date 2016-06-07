@@ -10,8 +10,8 @@ import java.util.*;
  */
 public class Map {
     public static final int MAP_LENGTH = 60;
-    static final int MAP_HEIGHT = 10, MAP_WIDTH = 22;
-    static final char[][] INITIAL_MAP = {
+    public static final int MAP_HEIGHT = 10, MAP_WIDTH = 22;
+    public static final char[][] INITIAL_MAP = {
         {'◎', '◎', '◎', '◎', '◎', '◎', '◎', '新', '◎', '◎', '◎', '◎', '银', '◎', '◎', '◎', '◎', '◎', '券', '券', '◎', '◎'},
         {'彩', '　', '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　', '◎'},
         {'◎', '　', '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　',  '　', '◎'},
