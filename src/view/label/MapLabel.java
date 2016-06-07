@@ -8,11 +8,15 @@ import java.awt.*;
  */
 public class MapLabel extends JLabel {
     protected ImageIcon[] playerIcons = new ImageIcon[4];
+    protected static final int SIZE = 30;
 
     public MapLabel() {
-        setSize(30, 30);
+        setSize(SIZE, SIZE);
         for (int i=0;i<playerIcons.length;i++) {
-            playerIcons[i] = new ImageIcon("image/player"+i+"头像.png");
+            playerIcons[i] =
+                    new ImageIcon(new ImageIcon("image/player"+i+"头像.png").getImage().
+                            getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH));
+
         }
     }
 

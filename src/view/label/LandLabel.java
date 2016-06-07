@@ -10,7 +10,9 @@ public class LandLabel extends MapLabel {
     public void setLandIcon(int owner, int level) {
         this.owner = owner;
         this.level = level;
-        landIcon = new ImageIcon("image/owner"+owner+"_"+level+".png");
+        landIcon =
+                new ImageIcon(new ImageIcon("image/owner"+owner+"_"+level+".png").getImage().
+                        getScaledInstance(SIZE, SIZE, Image.SCALE_SMOOTH));
     }
 
     private ImageIcon landIcon;
