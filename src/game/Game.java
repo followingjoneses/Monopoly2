@@ -9,6 +9,8 @@ import java.text.*;
  * Created by jzl on 16/4/2.
  */
 public class Game {
+    private static final Game GAME = new Game();
+
     private static final String PLAYER_NUMBER = "请设置玩家数量(2-4):\n",
         NAME_INPUT = "请输入玩家%d的名字:\n",
         SET_LIFETIME = "请设置游戏时间(天数):\n",
@@ -64,44 +66,20 @@ public class Game {
         day++;
     }
 
-    public void setPlayerNumber() {
-        System.out.print(PLAYER_NUMBER);
-        Scanner sc = new Scanner(System.in);
-        try {
-            int number = sc.nextInt();
-            if (number >= 2 && number <= 4)
-                playerNumber = number;
-            else
-                System.out.print(WARNING);
-        } catch (NumberFormatException e) {
-            System.out.print(WARNING);
-        }
-
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
         for (int i=0;i<playerNumber;i++)
             players.add(new Player(i));
     }
 
-    public void setPlayerNames() {
+    public void setPlayerNames(String[] names) {
         for (int i=0;i<players.size();i++) {
-            System.out.printf(NAME_INPUT, i+1);
-            Scanner sc = new Scanner(System.in);
-            String name = sc.next();
-            players.get(i).setName(name);
+            players.get(i).setName(names[i]);
         }
     }
 
-    public void setLifeTime() {
-        System.out.print(SET_LIFETIME);
-        Scanner sc = new Scanner(System.in);
-        try {
-            int day = sc.nextInt();
-            if (day >= 0)
-                lifetime = day;
-            else
-                System.out.print(WARNING);
-        } catch (NumberFormatException e) {
-            System.out.print(WARNING);
-        }
+    public void setLifeTime(int day) {
+        lifetime = day;
     }
 
     public void startGame() {
@@ -205,5 +183,9 @@ public class Game {
             currentPlayer = (currentPlayer + 1) % players.size();
         else if (option == 7)
             currentPlayer %= players.size();
+    }
+
+    public static Game getInstance() {
+        return GAME;
     }
 }
