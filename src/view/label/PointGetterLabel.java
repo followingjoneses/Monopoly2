@@ -7,12 +7,14 @@ import java.awt.*;
  * Created by jzl on 16/6/6.
  */
 public class PointGetterLabel extends MapLabel {
-    private final static Image POINT_GETTER_ICON = new ImageIcon("image/point_getter.png").getImage();
+    private final static ImageIcon POINT_GETTER_ICON = new ImageIcon("image/point_getter.png");
+
+    public PointGetterLabel() {
+        setIcon(POINT_GETTER_ICON);
+    }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if(POINT_GETTER_ICON!=null)
-            g.drawImage(POINT_GETTER_ICON, 0, 0, getWidth(),getHeight(),this);
+    protected void setInitialIcon() {
+        setIcon(POINT_GETTER_ICON);
     }
 }
