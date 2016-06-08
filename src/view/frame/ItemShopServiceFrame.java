@@ -21,7 +21,7 @@ public class ItemShopServiceFrame extends JFrame {
         add(new ItemShopPanel(this));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("银行");
+        setTitle("道具店");
         setVisible(true);
     }
 

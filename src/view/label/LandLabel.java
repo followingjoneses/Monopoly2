@@ -1,5 +1,9 @@
 package view.label;
 
+import object.Player;
+
+import static game.Game.getInstance;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -2,6 +2,7 @@ package function;
 
 import game.*;
 import object.*;
+import view.frame.LandServiceFrame;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,13 +28,14 @@ public class LandService {
         WARNING = "请输入符合要求的字符\n";
 
     public void serve(ArrayList<Player> players, int currentPlayer, Land land, Map map) {
-        String landName = land.getName();
-        int landOwner = land.getOwner();
-        Player player = players.get(currentPlayer);
-        int price = land.getPrice();
-        int level = land.getLevel();
-
-        System.out.printf(WELCOME, landName);
+        new LandServiceFrame(land);
+//        String landName = land.getName();
+//        int landOwner = land.getOwner();
+//        Player player = players.get(currentPlayer);
+//        int price = land.getPrice();
+//        int level = land.getLevel();
+//
+//        System.out.printf(WELCOME, landName);
 //        if (landOwner == -1) {
 //            System.out.print(NO_OWNER);
 //            System.out.print(PURCHASE);

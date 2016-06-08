@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by jzl on 16/4/2.
  */
 public class Land extends Serving implements Visualizable {
-    public static final int MAX_LEVEL = 6;
+    public static final int MAX_LEVEL = 5;
 
     private int level, price, street;
     private int owner = -1;
