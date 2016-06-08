@@ -48,7 +48,7 @@ public class LandLabel extends MapLabel {
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(landIcon);
     }
 }

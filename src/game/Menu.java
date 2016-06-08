@@ -2,6 +2,7 @@ package game;
 
 import item.Item;
 import object.*;
+import view.panel.MapPanel;
 
 import java.util.*;
 import java.text.*;
@@ -77,7 +78,7 @@ public class Menu {
         try {
             option = sc.nextInt();
             if (option >= 0 && option <=8) {
-                printSubmenu(calendar, stocks, map, option, players, currentPlayer);
+//                printSubmenu(calendar, stocks, map, option, players, currentPlayer);
             } else
                 System.out.print(WARNING);
         } catch (InputMismatchException e) {
@@ -87,39 +88,39 @@ public class Menu {
         return option;
     }
 
-    private void printSubmenu(Calendar calendar, Stock[] stocks, Map map, int option, ArrayList<Player> players, int currentPlayer) {
-        Player player = players.get(currentPlayer);
-
-        switch (option) {
-            case 0:
-                map.printCurMap(currentPlayer);
-                break;
-            case 1:
-                map.printInitialMap();
-                break;
-            case 2:
-                printUseItem(stocks, map, players, currentPlayer);
-                break;
-            case 3:
-                showBarriers(map, players, currentPlayer);
-                break;
-            case 4:
-                checkCellInfo(map, players, currentPlayer);
-                break;
-            case 5:
-                printPlayerProperties(players);
-                break;
-            case 6:
-                rollDice(map, players, currentPlayer);
-                break;
-            case 7:
-                giveUp(map, players, currentPlayer);
-                break;
-            case 8:
-                tradeStock(calendar, stocks, players, currentPlayer);
-                break;
-        }
-    }
+//    private void printSubmenu(Calendar calendar, Stock[] stocks, Map map, int option, ArrayList<Player> players, int currentPlayer) {
+//        Player player = players.get(currentPlayer);
+//
+//        switch (option) {
+//            case 0:
+//                map.printCurMap(currentPlayer);
+//                break;
+//            case 1:
+//                map.printInitialMap();
+//                break;
+//            case 2:
+//                printUseItem(stocks, map, players, currentPlayer);
+//                break;
+//            case 3:
+//                showBarriers(map, players, currentPlayer);
+//                break;
+//            case 4:
+//                checkCellInfo(map, players, currentPlayer);
+//                break;
+//            case 5:
+//                printPlayerProperties(players);
+//                break;
+//            case 6:
+//                rollDice(map, players, currentPlayer);
+//                break;
+//            case 7:
+//                giveUp(map, players, currentPlayer);
+//                break;
+//            case 8:
+//                tradeStock(calendar, stocks, players, currentPlayer);
+//                break;
+//        }
+//    }
 
     private void showBarriers(Map map, ArrayList<Player> players, int currentPlayer) {
         Player player = players.get(currentPlayer);
@@ -192,7 +193,7 @@ public class Menu {
         });
     }
 
-    private void rollDice(Map map, ArrayList<Player> players, int currentPlayer) {
+    public void rollDice(Map map, ArrayList<Player> players, int currentPlayer, MapPanel mapPanel) {
         Player player = players.get(currentPlayer);
         int dice;
         if (player.getNextDice() == 0)
@@ -201,17 +202,20 @@ public class Menu {
             dice = player.getNextDice();
             player.setNextDice(0);
         }
-        System.out.printf(DICE, dice);
+//        System.out.printf(DICE, dice);
         map.getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]).dismissView(player);
+        map.getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]).getView(currentPlayer);
         for (int i=0;i<dice;i++) {
             int location =
                     player.isClockWise() ? (player.getLocation() + i) % Map.MAP_LENGTH
                             : (player.getLocation() - i + Map.MAP_LENGTH) % Map.MAP_LENGTH;
-            Serving serving =
-                map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]).getServing();
+            Cell curCell = map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]);
+            Serving serving = curCell.getServing();
+            curCell.addView(player);
+            curCell.getView(currentPlayer);
             if (serving.isHasBarrier()) {
                 dice = i;
-                System.out.print(TRAPPED);
+//                System.out.print(TRAPPED);
                 serving.removeBarrier();
                 break;
             } else if (serving instanceof Bank) {
@@ -223,7 +227,7 @@ public class Menu {
         Cell curCell = map.getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
 
         curCell.addView(player);
-        map.printCurMap(currentPlayer);
+//        map.printCurMap(currentPlayer);
 
         curCell.getServing().serve(players, currentPlayer, map);
     }

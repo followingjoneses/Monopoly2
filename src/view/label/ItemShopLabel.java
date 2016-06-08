@@ -17,7 +17,7 @@ public class ItemShopLabel extends MapLabel {
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(ITEM_SHOP_ICON);
     }
 }

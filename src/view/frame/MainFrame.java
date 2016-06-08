@@ -9,7 +9,7 @@ import javax.swing.*;
  * Created by jzl on 16/6/6.
  */
 public class MainFrame extends JFrame {
-    private MapPanel mapPanel = new MapPanel(Map.INITIAL_MAP);
+    private MapPanel mapPanel = new MapPanel();
 
     public MainFrame() {
         setTitle("大富翁");

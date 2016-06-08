@@ -1,6 +1,7 @@
 package game;
 
 import object.*;
+import view.label.MapLabel;
 
 import java.util.*;
 
@@ -11,6 +12,12 @@ public class Cell {
     private int x, y;
     private Collection<Visualizable> views = new ArrayList<Visualizable>();
     private Serving serving;
+
+    public void setMapLabel(MapLabel mapLabel) {
+        this.mapLabel = mapLabel;
+    }
+
+    private MapLabel mapLabel;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -41,22 +48,26 @@ public class Cell {
         return this.serving;
     }
 
-    public char getView(int currentPlayer) {
+    public void getView(int currentPlayer) {
         Iterator<Visualizable> iterator = views.iterator();
-        if (views.size() == 1)
-            return iterator.next().toTexture();
+        if (views.size() == 1) {
+            mapLabel.setInitialIcon();
+        }
 
-        char value = '\u3000';
         for (;iterator.hasNext();) {
             Visualizable view = iterator.next();
             if (view instanceof Player) {
-                if (((Player)view).getNumber() == currentPlayer)
-                    return view.toTexture();
-                else
-                    value = view.toTexture();
+                if (((Player)view).getNumber() == currentPlayer) {
+//                    return view.toTexture();
+                    mapLabel.setPlayerIcon(currentPlayer);
+                    return;
+                }
+                else {
+//                    value = view.toTexture();
+                    mapLabel.setPlayerIcon(((Player)view).getNumber());
+                }
             }
         }
 
-        return value;
     }
 }

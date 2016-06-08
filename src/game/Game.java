@@ -24,15 +24,33 @@ public class Game {
                     "Boeing", "Toyota", "Intel", "Yahoo", "Cisco"};
 
     private int lifetime, day, playerNumber;
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     private ArrayList<Player> players;
     private int currentPlayer;
     private Calendar calendar;
+
+    public Menu getMenu() {
+        return menu;
+    }
+
     private Menu menu;
+
+    public Map getMap() {
+        return map;
+    }
+
     private Map map;
     private Stock[] stocks;
 
     public Game() {
         players = new ArrayList<>();
+        setPlayerNumber(4);
+        String[] a = {"","","",""};
+        setPlayerNames(a);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
         calendar = Calendar.getInstance();
@@ -45,10 +63,11 @@ public class Game {
 
         menu = new Menu();
         map = new Map();
+        buildMap();
 
-        stocks = new Stock[MIN_STOCK];
-        for (int i=0;i<MIN_STOCK;i++)
-            stocks[i] = new Stock(STOCK_NAME[i], i);
+//        stocks = new Stock[MIN_STOCK];
+//        for (int i=0;i<MIN_STOCK;i++)
+//            stocks[i] = new Stock(STOCK_NAME[i], i);
     }
 
     public int getCurrentPlayer() {
@@ -68,8 +87,9 @@ public class Game {
 
     public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
-        for (int i=0;i<playerNumber;i++)
+        for (int i=0;i<playerNumber;i++) {
             players.add(new Player(i));
+        }
     }
 
     public void setPlayerNames(String[] names) {
@@ -170,12 +190,14 @@ public class Game {
                         curCell.addView(lotteryHouse);
                         curCell.setServing(lotteryHouse);
                         break;
-
                 }
+                curCell.setMapLabel(map.getMapLabels()[y][x]);
             }
         }
-        for (int i=0;i<players.size();i++)
+        for (int i=0;i<players.size();i++) {
             map.getCell(0, 0).addView(players.get(i));
+            map.getCell(0, 0).getView(currentPlayer);
+        }
     }
 
     private void nextPlayer(int option) {

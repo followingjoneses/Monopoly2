@@ -1,6 +1,7 @@
 package game;
 
 import object.*;
+import view.label.*;
 
 import java.io.*;
 import java.util.*;
@@ -40,15 +41,54 @@ public class Map {
         {"双子座1号", "双子座2号", "双子座3号", "双子座4号"}
     };
 
-    private Collection<Cell> cells;
+    private Collection<Cell> cells = new ArrayList<Cell>();
     private char[][] curMap;
 
+    public MapLabel[][] getMapLabels() {
+        return mapLabels;
+    }
+
+    private MapLabel[][] mapLabels = new MapLabel[MAP_HEIGHT][MAP_WIDTH];
+
     public Map() {
-        this.cells = new ArrayList<Cell>();
-        this.curMap = new char[MAP_HEIGHT][MAP_WIDTH];
-        for (int y=1;y<MAP_HEIGHT-1;y++)
-            for (int x=1;x<MAP_WIDTH-1;x++)
-                curMap[y][x] = '\u3000';
+//        this.curMap = new char[MAP_HEIGHT][MAP_WIDTH];
+//        for (int y=1;y<MAP_HEIGHT-1;y++)
+//            for (int x=1;x<MAP_WIDTH-1;x++)
+//                curMap[y][x] = '\u3000';
+        for (int y=0;y<Map.MAP_HEIGHT;y++) {
+            for (int x = 0; x < Map.MAP_WIDTH; x++) {
+                if (Map.INITIAL_MAP[y][x] == '\u3000') {
+                    mapLabels[y][x] = null;
+                    continue;
+                }
+                switch(Map.INITIAL_MAP[y][x]) {
+                    case '◎':
+                        mapLabels[y][x] = new LandLabel(-1, 0);
+                        break;
+                    case '新':
+                        mapLabels[y][x] = new NewsCentreLabel();
+                        break;
+                    case '银':
+                        mapLabels[y][x] = new BankLabel();
+                        break;
+                    case '券':
+                        mapLabels[y][x] = new PointGetterLabel();
+                        break;
+                    case '道':
+                        mapLabels[y][x] = new ItemShopLabel();
+                        break;
+                    case '卡':
+                        mapLabels[y][x] = new ItemGetterLabel();
+                        break;
+                    case '空':
+                        mapLabels[y][x] = new OpeningLabel();
+                        break;
+                    case '彩':
+                        mapLabels[y][x] = new LotteryHouseLabel();
+                        break;
+                }
+            }
+        }
     }
 
     public Cell getCell(int x, int y) {
@@ -73,7 +113,7 @@ public class Map {
 
         for (;iterator.hasNext();) {
             Cell cell = iterator.next();
-            curMap[cell.getY()][cell.getX()] = cell.getView(currentPlayer);
+//            curMap[cell.getY()][cell.getX()] = cell.getView(currentPlayer);
         }
     }
 
@@ -92,5 +132,15 @@ public class Map {
                 System.out.print(curMap[y][x] + "　");
             System.out.println();
         }
+    }
+
+    public static int findLocation(int x, int y) {
+        for (int i=0;i<COORDINATE.length;i++) {
+            if (COORDINATE[i][0]==x && COORDINATE[i][1]==y) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

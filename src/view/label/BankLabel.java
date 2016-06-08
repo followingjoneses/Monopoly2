@@ -16,7 +16,7 @@ public class BankLabel extends MapLabel{
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(BANK_ICON);
     }
 }

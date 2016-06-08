@@ -1,6 +1,12 @@
 package view.panel;
 
+import static game.Game.getInstance;
+
+import game.Cell;
 import game.Map;
+import object.Bank;
+import object.Player;
+import object.Serving;
 import view.label.*;
 
 import javax.swing.*;
@@ -22,122 +28,71 @@ public class MapPanel extends JPanel {
         DICE_ICON[5] = new ImageIcon("image/dice6.png").getImage();
     }
 
-    private MapLabel[] mapLabels = new MapLabel[Map.MAP_LENGTH];
+    private DiceButton diceButton = new DiceButton();
 
-    public MapPanel(char[][] map) {
+    public int getCurDiceNumber() {
+        return curDiceNumber;
+    }
+
+    private int curDiceNumber = 1, movementCount;
+    private Timer movementTimer = new Timer(100, e -> {
+        if (movementCount < curDiceNumber) {
+            Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
+            Cell startCell =
+                    getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
+            startCell.dismissView(player);
+            startCell.getView(getInstance().getCurrentPlayer());
+            System.out.println("location: "+player.getLocation());
+            player.addLocation(1);
+            System.out.println("location: "+player.getLocation());
+//            int endLocation =
+//                    player.isClockWise() ? (player.getLocation() + 1) % Map.MAP_LENGTH
+//                            : (player.getLocation() - 1 + Map.MAP_LENGTH) % Map.MAP_LENGTH;
+            Cell endCell = getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
+            Serving serving = endCell.getServing();
+            endCell.addView(player);
+            endCell.getView(getInstance().getCurrentPlayer());
+            if (serving.isHasBarrier()) {
+                curDiceNumber = movementCount;
+                serving.removeBarrier();
+            } else if (serving instanceof Bank) {
+                serving.serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
+            }
+            movementCount++;
+            triggerEvent();
+        }
+    });
+
+    public MapPanel() {
         setLayout(null);
         setSize(900, 400);
-        int k=0;
-        for (int i=0;i<map[0].length;i++) {
-            switch (map[0][i]) {
-                case '◎':
-                    mapLabels[k] = new LandLabel(-1, 0);
-                    break;
-                case '新':
-                    mapLabels[k] = new NewsCentreLabel();
-                    break;
-                case '银':
-                    mapLabels[k] = new BankLabel();
-                    break;
-                case '券':
-                    mapLabels[k] = new PointGetterLabel();
-                    break;
-                case '道':
-                    mapLabels[k] = new ItemShopLabel();
-                    break;
-                case '卡':
-                    mapLabels[k] = new ItemGetterLabel();
-                    break;
-                case '空':
-                    mapLabels[k] = new OpeningLabel();
-                    break;
+        MapLabel[][] mapLabels = getInstance().getMap().getMapLabels();
+        int k = 0;
+        for (int y=0;y<Map.MAP_HEIGHT;y++) {
+            for (int x = 0; x < Map.MAP_WIDTH; x++) {
+                if (mapLabels[y][x] == null) {
+                    continue;
+                }
+                mapLabels[y][x].setLocation(x*40, y*40);
+                add(mapLabels[y][x]);
+                k++;
             }
-            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
-            add(mapLabels[k++]);
         }
-        for (int i=1;i<map.length-1;i++) {
-            switch (map[i][Map.MAP_WIDTH-1]) {
-                case '◎':
-                    mapLabels[k] = new LandLabel(-1, 0);
-                    break;
-                case '新':
-                    mapLabels[k] = new NewsCentreLabel();
-                    break;
-                case '银':
-                    mapLabels[k] = new BankLabel();
-                    break;
-                case '券':
-                    mapLabels[k] = new PointGetterLabel();
-                    break;
-                case '道':
-                    mapLabels[k] = new ItemShopLabel();
-                    break;
-                case '卡':
-                    mapLabels[k] = new ItemGetterLabel();
-                    break;
-                case '空':
-                    mapLabels[k] = new OpeningLabel();
-                    break;
-            }
-            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
-            add(mapLabels[k++]);
-        }
-        for (int i=map[Map.MAP_HEIGHT-1].length-1;i>=0;i--) {
-            switch (map[Map.MAP_HEIGHT-1][i]) {
-                case '◎':
-                    mapLabels[k] = new LandLabel(-1, 0);
-                    break;
-                case '新':
-                    mapLabels[k] = new NewsCentreLabel();
-                    break;
-                case '银':
-                    mapLabels[k] = new BankLabel();
-                    break;
-                case '券':
-                    mapLabels[k] = new PointGetterLabel();
-                    break;
-                case '道':
-                    mapLabels[k] = new ItemShopLabel();
-                    break;
-                case '卡':
-                    mapLabels[k] = new ItemGetterLabel();
-                    break;
-                case '空':
-                    mapLabels[k] = new OpeningLabel();
-                    break;
-            }
-            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
-            add(mapLabels[k++]);
-        }
-        for (int i=Map.MAP_HEIGHT-2;i>0;i--) {
-            switch (map[i][0]) {
-                case '◎':
-                    mapLabels[k] = new LandLabel(-1, 0);
-                    break;
-                case '新':
-                    mapLabels[k] = new NewsCentreLabel();
-                    break;
-                case '银':
-                    mapLabels[k] = new BankLabel();
-                    break;
-                case '券':
-                    mapLabels[k] = new PointGetterLabel();
-                    break;
-                case '道':
-                    mapLabels[k] = new ItemShopLabel();
-                    break;
-                case '卡':
-                    mapLabels[k] = new ItemGetterLabel();
-                    break;
-                case '空':
-                    mapLabels[k] = new OpeningLabel();
-                    break;
-                case '彩':
-                    mapLabels[k] = new LotteryHouseLabel();
-                    break;
-            }
-            mapLabels[k].setLocation(Map.COORDINATE[k][0]*40, Map.COORDINATE[k][1]*40);
-            add(mapLabels[k++]);
+        diceButton.setLocation(390, 140);
+        add(diceButton);
+    }
+
+    private void triggerEvent() {
+        if (movementCount == curDiceNumber) {
+            System.out.println(getInstance().getPlayers().get(getInstance().getCurrentPlayer()).getLocation());
+            movementTimer.stop();
+            movementCount = 0;
+            Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
+            Cell curCell =
+                    getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
+            curCell.getServing().serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
+//            curCell.addView(getInstance().getPlayers().get(getInstance().getCurrentPlayer()));
+//            curCell.getView(getInstance().getCurrentPlayer());
         }
     }
 
@@ -162,9 +117,27 @@ public class MapPanel extends JPanel {
 
         @Override
         protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (diceCount == 0) {
+            Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
 
+            super.paintComponent(g);
+            if(diceCount==0){
+                g.drawImage(DICE_ICON[curDiceNumber-1],0,0,getWidth(),getHeight(),this);
+            }
+            else{
+                curDiceNumber = (int)(Math.random()*6)+1;
+                g.drawImage(DICE_ICON[curDiceNumber-1],0,0,getWidth(),getHeight(),this);
+            }
+            if(diceCount==70){
+                if (player.getNextDice() != 0) {
+                    curDiceNumber = player.getNextDice();
+                    g.drawImage(DICE_ICON[curDiceNumber-1],0,0,getWidth(),getHeight(),this);
+                    repaint();
+                    player.setNextDice(0);
+                }
+                diceTimer.stop();
+                diceCount = 0;
+                movementTimer.start();
+                System.out.println(curDiceNumber);
             }
         }
     }

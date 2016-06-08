@@ -20,9 +20,9 @@ public class MapLabel extends JLabel {
         }
     }
 
-    protected void setPlayerIcon(int playerNumber) {
+    public void setPlayerIcon(int playerNumber) {
         setIcon(playerIcons[playerNumber]);
     }
 
-    protected void setInitialIcon() {}
+    public void setInitialIcon() {}
 }

@@ -16,7 +16,7 @@ public class NewsCentreLabel extends MapLabel {
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(NEWS_CENTRE_ICON);
     }
 }

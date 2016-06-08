@@ -17,7 +17,7 @@ public class OpeningLabel extends MapLabel{
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(OPENING_ICON);
     }
 }

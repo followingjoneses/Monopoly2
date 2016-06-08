@@ -16,7 +16,7 @@ public class ItemGetterLabel extends MapLabel {
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(ITEM_GETTER_ICON);
     }
 }

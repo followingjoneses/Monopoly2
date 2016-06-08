@@ -16,7 +16,7 @@ public class LotteryHouseLabel extends MapLabel {
     }
 
     @Override
-    protected void setInitialIcon() {
+    public void setInitialIcon() {
         setIcon(LOTTERY_HOUSE_ICON);
     }
 }
