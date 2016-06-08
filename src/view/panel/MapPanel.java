@@ -41,16 +41,13 @@ public class MapPanel extends JPanel {
             Cell startCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             startCell.dismissView(player);
+//            System.out.println("start: ");
             startCell.getView(getInstance().getCurrentPlayer());
-            System.out.println("location: "+player.getLocation());
             player.addLocation(1);
-            System.out.println("location: "+player.getLocation());
-//            int endLocation =
-//                    player.isClockWise() ? (player.getLocation() + 1) % Map.MAP_LENGTH
-//                            : (player.getLocation() - 1 + Map.MAP_LENGTH) % Map.MAP_LENGTH;
             Cell endCell = getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             Serving serving = endCell.getServing();
             endCell.addView(player);
+//            System.out.println("end: ");
             endCell.getView(getInstance().getCurrentPlayer());
             if (serving.isHasBarrier()) {
                 curDiceNumber = movementCount;
@@ -84,15 +81,12 @@ public class MapPanel extends JPanel {
 
     private void triggerEvent() {
         if (movementCount == curDiceNumber) {
-            System.out.println(getInstance().getPlayers().get(getInstance().getCurrentPlayer()).getLocation());
             movementTimer.stop();
             movementCount = 0;
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
             Cell curCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             curCell.getServing().serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
-//            curCell.addView(getInstance().getPlayers().get(getInstance().getCurrentPlayer()));
-//            curCell.getView(getInstance().getCurrentPlayer());
         }
     }
 
@@ -127,7 +121,7 @@ public class MapPanel extends JPanel {
                 curDiceNumber = (int)(Math.random()*6)+1;
                 g.drawImage(DICE_ICON[curDiceNumber-1],0,0,getWidth(),getHeight(),this);
             }
-            if(diceCount==70){
+            if(diceCount==40){
                 if (player.getNextDice() != 0) {
                     curDiceNumber = player.getNextDice();
                     g.drawImage(DICE_ICON[curDiceNumber-1],0,0,getWidth(),getHeight(),this);
@@ -137,7 +131,6 @@ public class MapPanel extends JPanel {
                 diceTimer.stop();
                 diceCount = 0;
                 movementTimer.start();
-                System.out.println(curDiceNumber);
             }
         }
     }

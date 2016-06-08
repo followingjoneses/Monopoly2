@@ -58,16 +58,19 @@ public class Cell {
             Visualizable view = iterator.next();
             if (view instanceof Player) {
                 if (((Player)view).getNumber() == currentPlayer) {
-//                    return view.toTexture();
                     mapLabel.setPlayerIcon(currentPlayer);
                     return;
-                }
-                else {
-//                    value = view.toTexture();
-                    mapLabel.setPlayerIcon(((Player)view).getNumber());
                 }
             }
         }
 
+        iterator = views.iterator();
+        for (;iterator.hasNext();) {
+            Visualizable view = iterator.next();
+            if (view instanceof Player) {
+                mapLabel.setPlayerIcon(((Player)view).getNumber());
+                return;
+            }
+        }
     }
 }
