@@ -41,13 +41,11 @@ public class MapPanel extends JPanel {
             Cell startCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             startCell.dismissView(player);
-//            System.out.println("start: ");
             startCell.getView(getInstance().getCurrentPlayer());
             player.addLocation(1);
             Cell endCell = getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             Serving serving = endCell.getServing();
             endCell.addView(player);
-//            System.out.println("end: ");
             endCell.getView(getInstance().getCurrentPlayer());
             if (serving.isHasBarrier()) {
                 curDiceNumber = movementCount;
@@ -64,7 +62,6 @@ public class MapPanel extends JPanel {
         setLayout(null);
         setSize(900, 400);
         MapLabel[][] mapLabels = getInstance().getMap().getMapLabels();
-        int k = 0;
         for (int y=0;y<Map.MAP_HEIGHT;y++) {
             for (int x = 0; x < Map.MAP_WIDTH; x++) {
                 if (mapLabels[y][x] == null) {
@@ -72,7 +69,6 @@ public class MapPanel extends JPanel {
                 }
                 mapLabels[y][x].setLocation(x*40, y*40);
                 add(mapLabels[y][x]);
-                k++;
             }
         }
         diceButton.setLocation(390, 140);

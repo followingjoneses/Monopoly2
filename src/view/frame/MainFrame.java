@@ -1,6 +1,9 @@
 package view.frame;
 
 import game.Map;
+import view.menu.CheckMenu;
+import view.menu.ItemMenu;
+import view.menu.StockMenu;
 import view.panel.MapPanel;
 
 import javax.swing.*;
@@ -13,8 +16,13 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("大富翁");
-        setSize(1000, 500);
+        setSize(1200, 600);
         setLayout(null);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(new CheckMenu());
+        menuBar.add(new ItemMenu());
+        menuBar.add(new StockMenu());
+        setJMenuBar(menuBar);
         mapPanel.setLocation(20, 20);
         add(mapPanel);
         setLocationRelativeTo(null);
