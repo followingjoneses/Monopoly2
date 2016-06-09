@@ -4,13 +4,14 @@ import game.Map;
 import object.Player;
 import object.Stock;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
  * Created by jzl on 16/4/25.
  */
 public class DividePropertyCard extends Item {
-    private static final String USE = "你使用了均富卡\n";
+//    private static final String USE = "你使用了均富卡\n";
 
     public DividePropertyCard() {
         this.itemIndex = 3;
@@ -31,6 +32,7 @@ public class DividePropertyCard extends Item {
         for (int i=0;i<players.size();i++)
             players.get(i).setCash(mean);
 
-        System.out.print(USE);
+//        System.out.print(USE);
+        JOptionPane.showMessageDialog(null, "你使用了均富卡", "均富卡", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -1,3 +1,4 @@
+import game.Game;
 import view.frame.MainFrame;
 
 /**
@@ -10,6 +11,7 @@ public class Main {
 //        game.setPlayerNames();
 //        game.setLifeTime();
 //        game.startGame();
+        Game.getInstance().initialStock();
         new MainFrame();
     }
 }

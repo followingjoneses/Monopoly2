@@ -3,6 +3,7 @@ package item;
 import game.Map;
 import object.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,9 +11,9 @@ import java.util.Scanner;
  * Created by jzl on 16/4/25.
  */
 public class ControlDice extends Item{
-    private static final String USE = "你使用了遥控骰子\n",
-        STEP = "请输入你想掷的点数(1-6),按x返回上一层:\n",
-        WARNING = "请输入符合要求的字符\n";
+//    private static final String USE = "你使用了遥控骰子\n",
+//        STEP = "请输入你想掷的点数(1-6),按x返回上一层:\n",
+//        WARNING = "请输入符合要求的字符\n";
 
     public ControlDice() {
         this.itemIndex = 1;
@@ -23,24 +24,29 @@ public class ControlDice extends Item{
     public void use(Stock[] stocks, Map map, ArrayList<Player> players, int currentPlayer) {
         Player player = players.get(currentPlayer);
 
-        System.out.print(STEP);
-        Scanner sc = new Scanner(System.in);
-        String option = sc.next();
-
-        if (option.equals("x"))
-            return;
+//        System.out.print(STEP);
+        String option = JOptionPane.showInputDialog(null, "请输入你想掷的点数(1-6)", "遥控骰子", JOptionPane.INFORMATION_MESSAGE);
+//        Scanner sc = new Scanner(System.in);
+//        String option = sc.next();
+//
+//        if (option.equals("x"))
+//            return;
 
         try {
             int step = Integer.parseInt(option);
             if (step >= 1 && step <= 6) {
                 super.use(stocks, map, players, currentPlayer);
                 player.setNextDice(step);
-                System.out.print(USE);
+//                System.out.print(USE);
+                JOptionPane.showMessageDialog(null, "你使用了遥控骰子", "遥控骰子", JOptionPane.INFORMATION_MESSAGE);
             }
-            else
-                System.out.print(WARNING);
+            else {
+//                System.out.print(WARNING);
+                JOptionPane.showMessageDialog(null, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (NumberFormatException e) {
-            System.out.print(WARNING);
+//            System.out.print(WARNING);
+            JOptionPane.showMessageDialog(null, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

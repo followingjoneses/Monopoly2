@@ -19,7 +19,7 @@ public class Game {
         WARNING = "请输入符合要求的字符\n";
     private static final int MAX_PLAYER = 4,
         MIN_STOCK = 10;
-    private static final String[] STOCK_NAME =
+    public static final String[] STOCK_NAME =
             {"Nike", "Oracle", "Apple", "Citi", "Fort",
                     "Boeing", "Toyota", "Intel", "Yahoo", "Cisco"};
 
@@ -44,6 +44,11 @@ public class Game {
     }
 
     private Map map;
+
+    public Stock[] getStocks() {
+        return stocks;
+    }
+
     private Stock[] stocks;
 
     public Game() {
@@ -66,8 +71,18 @@ public class Game {
         buildMap();
 
 //        stocks = new Stock[MIN_STOCK];
-//        for (int i=0;i<MIN_STOCK;i++)
+//        for (int i=0;i<MIN_STOCK;i++) {
+//            System.out.println(stocks);
 //            stocks[i] = new Stock(STOCK_NAME[i], i);
+//        }
+    }
+
+    public void initialStock() {
+        stocks = new Stock[MIN_STOCK];
+        for (int i=0;i<MIN_STOCK;i++) {
+            System.out.println(stocks);
+            stocks[i] = new Stock(STOCK_NAME[i], i);
+        }
     }
 
     public int getCurrentPlayer() {

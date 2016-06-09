@@ -35,7 +35,8 @@ public class UseItemFrame extends JFrame {
             int index = i;
             itemButtons[i].addActionListener(e -> {
                 if (player.getItemNumber(index) > 0) {
-
+                    player.getItem(index).use(getInstance().getStocks(), getInstance().getMap(),
+                            getInstance().getPlayers(), getInstance().getCurrentPlayer());
                     player.dismissItem(index);
                 } else {
                     JOptionPane.showMessageDialog(null, "你没有该道具!", "道具使用", JOptionPane.WARNING_MESSAGE);
@@ -52,7 +53,6 @@ public class UseItemFrame extends JFrame {
             }
         });
         panel.add(returnButton);
-        System.out.print(123);
         return panel;
     }
 }
