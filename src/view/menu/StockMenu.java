@@ -13,7 +13,7 @@ public class StockMenu extends JMenu {
         JMenuItem stockItem = new JMenuItem("股票");
         stockItem.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
 
             }
         });

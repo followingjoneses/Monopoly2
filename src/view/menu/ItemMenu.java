@@ -1,5 +1,7 @@
 package view.menu;
 
+import view.frame.UseItemFrame;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,8 +15,8 @@ public class ItemMenu extends JMenu {
         JMenuItem useItem = new JMenuItem("使用道具");
         useItem.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
+            public void mousePressed(MouseEvent e) {
+                new UseItemFrame();
             }
         });
         add(useItem);
