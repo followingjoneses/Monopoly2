@@ -136,6 +136,10 @@ public class Player implements Visualizable{
         return items.get(index).get(0);
     }
 
+    public int getItemNumber(int index) {
+        return items.get(index).size();
+    }
+
     public void dismissItem(int index) {
         items.get(index).remove(items.get(index).get(0));
     }
