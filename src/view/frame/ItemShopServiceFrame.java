@@ -16,7 +16,7 @@ public class ItemShopServiceFrame extends JFrame {
     private static final int PRICE = 50;
 
     public ItemShopServiceFrame() {
-        setSize(300,260);
+        setSize(300,280);
         setLayout(null);
         add(new ItemShopPanel(this));
         setLocationRelativeTo(null);
@@ -28,7 +28,7 @@ public class ItemShopServiceFrame extends JFrame {
     class ItemShopPanel extends JPanel {
         ItemShopPanel(JFrame frame) {
             setLayout(null);
-            setBounds(0, 0, 300, 260);
+            setBounds(0, 0, 300, 280);
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
             JRadioButton[] itemButtons = new JRadioButton[Menu.ITEM_NAMES.length];
             ButtonGroup buttonGroup = new ButtonGroup();
@@ -39,7 +39,7 @@ public class ItemShopServiceFrame extends JFrame {
                 add(itemButtons[i]);
             }
             JButton confirm = new JButton("确定");
-            confirm.setBounds(45, 210, 60, 20);
+            confirm.setBounds(45, 230, 60, 20);
             confirm.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -59,7 +59,7 @@ public class ItemShopServiceFrame extends JFrame {
             });
             add(confirm);
             JButton returnButton = new JButton("返回");
-            returnButton.setBounds(195, 210, 60, 20);
+            returnButton.setBounds(195, 230, 60, 20);
             returnButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

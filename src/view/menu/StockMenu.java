@@ -1,5 +1,7 @@
 package view.menu;
 
+import view.frame.StockTradeFrame;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,7 +16,7 @@ public class StockMenu extends JMenu {
         stockItem.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-
+                new StockTradeFrame();
             }
         });
         add(stockItem);

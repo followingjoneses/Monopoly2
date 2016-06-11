@@ -54,8 +54,8 @@ public class Game {
 
     public Game() {
         players = new ArrayList<>();
-        setPlayerNumber(4);
-        String[] a = {"1","2","3","4"};
+        setPlayerNumber(2);
+        String[] a = {"1","2"};
         setPlayerNames(a);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
