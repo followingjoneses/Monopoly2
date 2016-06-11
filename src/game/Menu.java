@@ -4,6 +4,7 @@ import item.Item;
 import object.*;
 import view.panel.MapPanel;
 
+import javax.swing.*;
 import java.util.*;
 import java.text.*;
 
@@ -122,22 +123,23 @@ public class Menu {
 //        }
 //    }
 
-    private void showBarriers(Map map, ArrayList<Player> players, int currentPlayer) {
+    public void showBarriers(Map map, ArrayList<Player> players, int currentPlayer) {
         Player player = players.get(currentPlayer);
         int location = player.getLocation();
         boolean hasBarrier = false;
-
         for (int i=0;i<10;i++) {
             location = (location + 1) % Map.MAP_LENGTH;
             Cell cell = map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]);
             if (cell.getServing().isHasBarrier()) {
                 hasBarrier = true;
-                System.out.printf(HAS_BARRIER, i + 1);
+//                System.out.printf(HAS_BARRIER, i + 1);
+                JOptionPane.showMessageDialog(null, "前方"+(i+1)+"有路障");
             }
         }
-
-        if (!hasBarrier)
-            System.out.print(NO_BARRIER);
+        if (!hasBarrier) {
+//            System.out.print(NO_BARRIER);
+            JOptionPane.showMessageDialog(null, "无路障");
+        }
     }
 
     private void printUseItem(Stock[] stocks, Map map, ArrayList<Player> players, int currentPlayer) {

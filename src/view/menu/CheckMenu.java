@@ -55,5 +55,13 @@ public class CheckMenu extends JMenu {
             }
         });
         add(checkTime);
+        JMenuItem checkBarrier = new JMenuItem("前方10步内示警");
+        checkBarrier.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                getInstance().getMenu().showBarriers(getInstance().getMap(), getInstance().getPlayers(), getInstance().getCurrentPlayer());
+            }
+        });
+        add(checkBarrier);
     }
 }
