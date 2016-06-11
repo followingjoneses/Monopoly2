@@ -3,6 +3,7 @@ package object;
 import function.LandService;
 import game.Map;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -70,13 +71,14 @@ public class Land extends Serving implements Visualizable {
 
     @Override
     public void printCellInfo(ArrayList<Player> players) {
-        System.out.println(this.name);
-
+//        System.out.println(this.name);
+//
         String landOwner = (owner == -1) ? "无主" : "主人是"+ players.get(owner).getName();
-
-        System.out.println(landOwner);
-        System.out.println("初始价格:"+price);
-        System.out.println("等级:"+level + "级");
+//
+//        System.out.println(landOwner);
+//        System.out.println("初始价格:"+price);
+//        System.out.println("等级:"+level + "级");
+        JOptionPane.showMessageDialog(null, this.name+","+landOwner+",初始价格:"+price+",等级:"+level + "级");
 
     }
 

@@ -3,6 +3,7 @@ package object;
 import function.OpeningService;
 import game.Map;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -23,8 +24,10 @@ public class Opening extends Serving implements Visualizable {
 
     @Override
     public void printCellInfo(ArrayList<Player> players) {
-        System.out.println(this.name);
+//        System.out.println(this.name);
+        JOptionPane.showMessageDialog(null, this.name);
     }
+
 
     @Override
     public char toTexture() {

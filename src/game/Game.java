@@ -2,6 +2,7 @@ package game;
 
 import object.*;
 
+import javax.swing.*;
 import java.util.*;
 import java.text.*;
 
@@ -54,7 +55,7 @@ public class Game {
     public Game() {
         players = new ArrayList<>();
         setPlayerNumber(4);
-        String[] a = {"","","",""};
+        String[] a = {"1","2","3","4"};
         setPlayerNames(a);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
@@ -95,6 +96,10 @@ public class Game {
 
     public void tomorrow() {
         calendar.add(Calendar.DATE, 1);
+        if (calendar.get(Calendar.DATE)==calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+            JOptionPane.showMessageDialog(null, "月底银行发利息了!");
+            players.forEach(player -> player.addDeposit((int)(0.1 * player.getDeposit())));
+        }
         for (int i=0;i<stocks.length;i++)
             stocks[i].tomorrow();
         day++;
@@ -215,7 +220,10 @@ public class Game {
         }
     }
 
-    private void nextPlayer(int option) {
+    public void nextPlayer(int option) {
+        if (currentPlayer == players.size()-1) {
+            tomorrow();
+        }
         if (option == 6)
             currentPlayer = (currentPlayer + 1) % players.size();
         else if (option == 7)

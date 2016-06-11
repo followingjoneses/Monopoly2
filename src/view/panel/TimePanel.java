@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 public class TimePanel extends JPanel {
     public TimePanel() {
         setLayout(null);
-        setSize(140,50);
+        setBounds(0,0,140,50);
         setName("游戏信息");
         setVisible(true);
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "时间信息"));

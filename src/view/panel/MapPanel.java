@@ -7,6 +7,7 @@ import game.Map;
 import object.Bank;
 import object.Player;
 import object.Serving;
+import view.frame.MainFrame;
 import view.label.*;
 
 import javax.swing.*;
@@ -83,6 +84,7 @@ public class MapPanel extends JPanel {
             Cell curCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             curCell.getServing().serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
+            getInstance().nextPlayer(6);
         }
     }
 

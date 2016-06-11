@@ -11,7 +11,10 @@ import java.awt.*;
  * Created by jzl on 16/6/9.
  */
 public class PlayerPanel extends JPanel {
-    public PlayerPanel() {
+    private int playerNumber;
+
+    public PlayerPanel(int playerNumber) {
+        this.playerNumber = playerNumber;
         setLayout(null);
         setSize(140,230);
         setVisible(true);
@@ -21,7 +24,7 @@ public class PlayerPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
+        Player player = getInstance().getPlayers().get(playerNumber);
         g.setFont(new Font("楷体",Font.PLAIN,15));
         g.drawString("玩家："+player.getName(), 10, 30);
         g.drawString("现金："+player.getCash(),10,45);
