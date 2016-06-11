@@ -11,7 +11,27 @@ import java.util.ArrayList;
 public class Player implements Visualizable{
     private static final int ITEM_NUMBER = 7;
 
-    private int cash, deposit, houseProperty, point, location, number, nextDice;
+    private int cash;
+    private int deposit;
+    private int houseProperty;
+    private int point;
+    private int location;
+    private int number;
+    private int nextDice;
+
+    public int getInHospital() {
+        return inHospital;
+    }
+
+    public void setInHospital(int inHospital) {
+        this.inHospital = inHospital;
+    }
+
+    public void inHospitalminus() {
+        inHospital--;
+    }
+
+    private int inHospital;
     private boolean isClockWise;
     private String name;
     private ArrayList<ArrayList<Item>> items;

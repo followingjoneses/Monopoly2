@@ -210,6 +210,11 @@ public class Game {
                         curCell.addView(lotteryHouse);
                         curCell.setServing(lotteryHouse);
                         break;
+                    case '医':
+                        Hospital hospital = new Hospital();
+                        curCell.addView(hospital);
+                        curCell.setServing(hospital);
+                        break;
                 }
                 curCell.setMapLabel(map.getMapLabels()[y][x]);
             }
@@ -224,10 +229,19 @@ public class Game {
         if (currentPlayer == players.size()-1) {
             tomorrow();
         }
-        if (option == 6)
+        if (option == 6) {
             currentPlayer = (currentPlayer + 1) % players.size();
-        else if (option == 7)
+        }
+        else if (option == 7) {
             currentPlayer %= players.size();
+        }
+//        JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+        if (players.get(currentPlayer).getInHospital() != 0) {
+            JOptionPane.showMessageDialog(null, "你还在医院里!");
+            players.get(currentPlayer).inHospitalminus();
+            currentPlayer = (currentPlayer + 1) % players.size();
+//            JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+        }
     }
 
     public static Game getInstance() {
