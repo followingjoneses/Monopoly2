@@ -1,6 +1,7 @@
 package view.frame;
 
 import view.menu.CheckMenu;
+import view.menu.FunctionMenu;
 import view.menu.ItemMenu;
 import view.menu.StockMenu;
 import view.panel.MapPanel;
@@ -23,6 +24,7 @@ public class MainFrame extends JFrame {
         menuBar.add(new CheckMenu());
         menuBar.add(new ItemMenu());
         menuBar.add(new StockMenu());
+        menuBar.add(new FunctionMenu());
         setJMenuBar(menuBar);
         mapPanel.setLocation(20, 20);
         add(mapPanel);
