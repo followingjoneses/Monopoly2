@@ -47,12 +47,17 @@ public class ItemShopServiceFrame extends JFrame {
                     if (selected==-1) {
                         JOptionPane.showMessageDialog(null, "请选择一个道具", "道具店", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        if (player.getPoint() < PRICE)
+                        if (player.getPoint() < PRICE) {
                             JOptionPane.showMessageDialog(null, "点券不足", "道具店", JOptionPane.WARNING_MESSAGE);
+                            frame.dispose();
+                            getInstance().nextPlayer(6);
+                        }
                         else {
                             player.addItem(selected, 1);
                             player.addPoint(-PRICE);
                             JOptionPane.showMessageDialog(null, "购买成功", "道具店", JOptionPane.INFORMATION_MESSAGE);
+                            frame.dispose();
+                            getInstance().nextPlayer(6);
                         }
                     }
                 }
@@ -64,6 +69,7 @@ public class ItemShopServiceFrame extends JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     frame.dispose();
+                    getInstance().nextPlayer(6);
                 }
             });
             add(returnButton);

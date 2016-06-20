@@ -89,6 +89,7 @@ public class NewsCentreService {
                 players.get(currentPlayer).setClockWise(false);
                 break;
         }
+        getInstance().nextPlayer(6);
     }
 
     private Player getRichest(ArrayList<Player> players) {

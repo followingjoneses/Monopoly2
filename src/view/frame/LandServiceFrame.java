@@ -56,14 +56,17 @@ public class LandServiceFrame extends JFrame {
                         curLabel.setLandIcon(player.getNumber(), 1);
                         JOptionPane.showMessageDialog(null, "购买成功", "房产", JOptionPane.INFORMATION_MESSAGE);
                         frame.dispose();
+                        getInstance().nextPlayer(6);
                     } else {
                         JOptionPane.showMessageDialog(null, "现金不足", "房产", JOptionPane.ERROR_MESSAGE);
                         frame.dispose();
+                        getInstance().nextPlayer(6);
                     }
                 });
                 no.addActionListener(e -> {
                     JOptionPane.showMessageDialog(null, "未购买", "房产", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
+                    getInstance().nextPlayer(6);
                 });
                 ButtonGroup buttonGroup = new ButtonGroup();
                 buttonGroup.add(yes);
@@ -89,18 +92,22 @@ public class LandServiceFrame extends JFrame {
                             curLabel.setLandIcon(player.getNumber(), land.getLevel());
                             JOptionPane.showMessageDialog(null, "升级成功", "房产", JOptionPane.INFORMATION_MESSAGE);
                             frame.dispose();
+                            getInstance().nextPlayer(6);
                         } else {
                             JOptionPane.showMessageDialog(null, "现金不足", "房产", JOptionPane.ERROR_MESSAGE);
                             frame.dispose();
+                            getInstance().nextPlayer(6);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "该房屋等级已经最高!", "房产", JOptionPane.WARNING_MESSAGE);
                         frame.dispose();
+                        getInstance().nextPlayer(6);
                     }
                 });
                 no.addActionListener(e -> {
                     JOptionPane.showMessageDialog(null, "未升级", "房产", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
+                    getInstance().nextPlayer(6);
                 });
                 ButtonGroup buttonGroup = new ButtonGroup();
                 buttonGroup.add(yes);
@@ -122,11 +129,12 @@ public class LandServiceFrame extends JFrame {
                 payLabel.setBounds(20, 50, 150, 20);
                 add(payLabel);
                 JButton confirm = new JButton("确定");
-                confirm.setBounds(120, 80, 60, 20);
+                confirm.setBounds(140, 80, 60, 20);
                 confirm.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         frame.dispose();
+                        getInstance().nextPlayer(6);
                     }
                 });
                 add(confirm);

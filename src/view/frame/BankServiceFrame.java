@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
  * Created by jzl on 16/6/8.
  */
 public class BankServiceFrame extends JFrame {
+    private static int BANK_LOCATION = 12;
+
     public BankServiceFrame(){
         setSize(440,150);
         setLayout(null);
@@ -87,6 +89,9 @@ public class BankServiceFrame extends JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     frame.dispose();
+                    if (player.getLocation() == BANK_LOCATION) {
+                        getInstance().nextPlayer(6);
+                    }
                 }
             });
             add(returnButton);

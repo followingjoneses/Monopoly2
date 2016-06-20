@@ -84,7 +84,7 @@ public class MapPanel extends JPanel {
             Cell curCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             curCell.getServing().serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
-            getInstance().nextPlayer(6);
+//            getInstance().nextPlayer(6);
         }
     }
 

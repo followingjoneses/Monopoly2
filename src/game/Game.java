@@ -226,6 +226,10 @@ public class Game {
     }
 
     public void nextPlayer(int option) {
+        if (players.size() == 1) {
+            JOptionPane.showMessageDialog(null, players.get(0).getName()+"获胜!");
+            System.exit(0);
+        }
         if (currentPlayer == players.size()-1) {
             tomorrow();
         }
@@ -235,12 +239,12 @@ public class Game {
         else if (option == 7) {
             currentPlayer %= players.size();
         }
-//        JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+        JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
         if (players.get(currentPlayer).getInHospital() != 0) {
             JOptionPane.showMessageDialog(null, "你还在医院里!");
             players.get(currentPlayer).inHospitalminus();
             currentPlayer = (currentPlayer + 1) % players.size();
-//            JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+            JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
         }
     }
 

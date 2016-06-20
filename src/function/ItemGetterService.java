@@ -1,5 +1,7 @@
 package function;
 
+import static game.Game.getInstance;
+
 import game.Menu;
 import object.Player;
 
@@ -22,6 +24,7 @@ public class ItemGetterService {
         player.addItem(index, 1);
         String message = "你获得了"+Menu.ITEM_NAMES[index];
         JOptionPane.showMessageDialog(null, message, "赠卡点", JOptionPane.INFORMATION_MESSAGE);
+        getInstance().nextPlayer(6);
 //        System.out.printf(GET_ITEM, Menu.ITEM_NAMES[index]);
     }
 }

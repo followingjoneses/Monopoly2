@@ -1,5 +1,7 @@
 package function;
 
+import static game.Game.getInstance;
+
 import javax.swing.*;
 
 /**
@@ -8,5 +10,6 @@ import javax.swing.*;
 public class HospitalService {
     public void serve() {
         JOptionPane.showMessageDialog(null, "你来到了医院,什么都不能做");
+        getInstance().nextPlayer(6);
     }
 }
