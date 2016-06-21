@@ -11,13 +11,13 @@ import java.awt.event.MouseEvent;
  */
 public class TimeFrame extends JFrame{
     public TimeFrame() {
-        setSize(140, 120);
+        setSize(400, 200);
         setLocationRelativeTo(null);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(new TimePanel());
         JButton returnButton = new JButton("返回");
-        returnButton.setBounds(40, 60, 60,20);
+        returnButton.setBounds(170, 120, 60,20);
         JFrame frame = this;
         returnButton.addMouseListener(new MouseAdapter() {
             @Override

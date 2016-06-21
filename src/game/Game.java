@@ -48,10 +48,10 @@ public class Game {
     private Stock[] stocks;
 
     public Game() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日 EEEE");
         calendar = Calendar.getInstance();
         try {
-            Date date = simpleDateFormat.parse("2014年1月30日");
+            Date date = simpleDateFormat.parse("2014年1月1日 星期三");
             calendar.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
