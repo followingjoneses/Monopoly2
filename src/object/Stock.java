@@ -11,7 +11,6 @@ public class Stock {
     private double price, rate;
 
     public Stock(String name, int number) {
-        System.out.println(123);
         this.name = name;
         this.number = number;
 

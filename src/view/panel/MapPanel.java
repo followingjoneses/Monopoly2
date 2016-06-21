@@ -20,6 +20,7 @@ import java.awt.event.MouseEvent;
  */
 public class MapPanel extends JPanel {
     private static final Image[] DICE_ICON = new Image[6];
+    public static boolean ON_BANK = false;
     static {
         DICE_ICON[0] = new ImageIcon("image/dice1.png").getImage();
         DICE_ICON[1] = new ImageIcon("image/dice2.png").getImage();
@@ -49,9 +50,11 @@ public class MapPanel extends JPanel {
             endCell.addView(player);
             endCell.getView(getInstance().getCurrentPlayer());
             if (serving.isHasBarrier()) {
-                curDiceNumber = movementCount;
+                JOptionPane.showMessageDialog(null, "你遇到了路障!");
+                curDiceNumber = movementCount+1;
                 serving.removeBarrier();
             } else if (serving instanceof Bank) {
+                ON_BANK = false;
                 serving.serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
             }
             movementCount++;
@@ -81,6 +84,9 @@ public class MapPanel extends JPanel {
             movementTimer.stop();
             movementCount = 0;
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
+            if (player.getLocation() == 12) {
+                ON_BANK = true;
+            }
             Cell curCell =
                     getInstance().getMap().getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
             curCell.getServing().serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
@@ -109,6 +115,7 @@ public class MapPanel extends JPanel {
 
         @Override
         protected void paintComponent(Graphics g) {
+            System.out.println(1);
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
 
             super.paintComponent(g);

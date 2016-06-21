@@ -115,16 +115,18 @@ public class LandServiceFrame extends JFrame {
                 add(yes);
                 add(no);
             } else {
-                Player owner = null;
+                Player owner1 = null;
                 for (int i=0;i<getInstance().getPlayers().size();i++) {
                     if (getInstance().getPlayers().get(i).getNumber() == landOwner) {
-                        owner = getInstance().getPlayers().get(i);
+                        owner1 = getInstance().getPlayers().get(i);
                     }
                 }
-                int fee = (int)(price * level * 0.3);
+                final Player owner = owner1;
+                int fee1 = (int)(price * level * 0.3);
                 for (int i=0;i<owner.getLands().size();i++)
                     if (land != owner.getLands().get(i) && land.getStreet() == owner.getLands().get(i).getStreet())
-                        fee += (int)(owner.getLands().get(i).getPrice() * owner.getLands().get(i).getLevel() * 0.1);
+                        fee1 += (int)(owner.getLands().get(i).getPrice() * owner.getLands().get(i).getLevel() * 0.1);
+                final int fee = fee1;
                 JLabel payLabel = new JLabel("你需要支付"+fee+"过路费");
                 payLabel.setBounds(20, 50, 150, 20);
                 add(payLabel);
@@ -134,43 +136,48 @@ public class LandServiceFrame extends JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         frame.dispose();
-                        getInstance().nextPlayer(6);
+                        if (player.getCash() >= fee) {
+                            player.addCash(-fee);
+                            owner.addCash(fee);
+                            getInstance().nextPlayer(6);
+                        } else if (player.getCash() + player.getDeposit() >= fee) {
+                            player.addDeposit(player.getCash() - fee);
+                            player.setCash(0);
+                            owner.addCash(fee);
+                            getInstance().nextPlayer(6);
+                        } else if (player.getCash() + player.getDeposit() + player.getHouseProperty() >= fee) {
+                            int delta = fee - player.getCash() - player.getDeposit();
+                            for (int i=0;i<player.getLands().size();i++) {
+                                Land tempLand = player.getLands().get(0);
+                                if (tempLand.getLevel()*tempLand.getPrice()>=delta) {
+                                    int cash = tempLand.getLevel()*tempLand.getPrice() - delta;
+                                    player.addCash(cash);
+                                    player.addHouseProperty(-tempLand.getLevel()*tempLand.getPrice());
+                                    player.getLands().remove(tempLand);
+                                    tempLand.setOwner(-1);
+                                    tempLand.setLevel(1);
+                                    break;
+                                } else {
+                                    delta -= tempLand.getLevel()*tempLand.getPrice();
+                                    player.getLands().remove(tempLand);
+                                    tempLand.setOwner(-1);
+                                    tempLand.setLevel(1);
+                                }
+                            }
+                            owner.addCash(fee);
+                            getInstance().nextPlayer(6);
+                        } else {
+                            int location = player.getLocation();
+                            Cell cell = getInstance().getMap().getCell(game.Map.COORDINATE[location][0], game.Map.COORDINATE[location][1]);
+                            cell.dismissView(player);
+                            cell.getView(getInstance().getCurrentPlayer());
+                            getInstance().getPlayers().remove(player);
+                            JOptionPane.showMessageDialog(null, "玩家"+player.getName()+"破产了!");
+                            getInstance().nextPlayer(7);
+                        }
                     }
                 });
                 add(confirm);
-                if (player.getCash() >= fee) {
-                    player.addCash(-fee);
-                    owner.addCash(fee);
-                } else if (player.getCash() + player.getDeposit() >= fee) {
-                    player.addDeposit(player.getCash() - fee);
-                    player.setCash(0);
-                    owner.addCash(fee);
-                } else if (player.getCash() + player.getDeposit() + player.getHouseProperty() >= fee) {
-                    int delta = fee - player.getCash() - player.getDeposit();
-                    for (int i=0;i<player.getLands().size();i++) {
-                        Land tempLand = player.getLands().get(0);
-                        if (tempLand.getLevel()*tempLand.getPrice()>=delta) {
-                            int cash = tempLand.getLevel()*tempLand.getPrice() - delta;
-                            player.addCash(cash);
-                            player.addHouseProperty(-tempLand.getLevel()*tempLand.getPrice());
-                            player.getLands().remove(tempLand);
-                            tempLand.setOwner(-1);
-                            tempLand.setLevel(1);
-                            break;
-                        } else {
-                            delta -= tempLand.getLevel()*tempLand.getPrice();
-                            player.getLands().remove(tempLand);
-                            tempLand.setOwner(-1);
-                            tempLand.setLevel(1);
-                        }
-                    }
-                    owner.addCash(fee);
-                } else {
-                    int location = player.getLocation();
-                    Cell cell = getInstance().getMap().getCell(game.Map.COORDINATE[location][0], game.Map.COORDINATE[location][1]);
-                    cell.dismissView(player);
-                    getInstance().getPlayers().remove(player);
-                }
             }
         }
     }

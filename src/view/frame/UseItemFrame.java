@@ -37,7 +37,6 @@ public class UseItemFrame extends JFrame {
                 if (player.getItemNumber(index) > 0) {
                     player.getItem(index).use(getInstance().getStocks(), getInstance().getMap(),
                             getInstance().getPlayers(), getInstance().getCurrentPlayer());
-                    player.dismissItem(index);
                 } else {
                     JOptionPane.showMessageDialog(null, "你没有该道具!", "道具使用", JOptionPane.WARNING_MESSAGE);
                 }

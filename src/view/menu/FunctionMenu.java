@@ -31,8 +31,10 @@ public class FunctionMenu extends JMenu {
                     lands.remove(lands.get(0));
                 }
                 int location = player.getLocation();
+                System.out.println(2);
                 Cell cell = getInstance().getMap().getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]);
                 cell.dismissView(player);
+                cell.getView(getInstance().getCurrentPlayer());
                 getInstance().getPlayers().remove(player);
                 getInstance().nextPlayer(7);
             }

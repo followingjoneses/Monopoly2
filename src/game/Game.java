@@ -54,9 +54,11 @@ public class Game {
 
     public Game() {
         players = new ArrayList<>();
-        setPlayerNumber(2);
-        String[] a = {"1","2"};
+        setPlayerNumber(3);
+        String[] a = {"1","2", "3"};
         setPlayerNames(a);
+        players.get(1).setCash(0);
+        players.get(1).setDeposit(0);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
         calendar = Calendar.getInstance();
@@ -81,7 +83,6 @@ public class Game {
     public void initialStock() {
         stocks = new Stock[MIN_STOCK];
         for (int i=0;i<MIN_STOCK;i++) {
-            System.out.println(stocks);
             stocks[i] = new Stock(STOCK_NAME[i], i);
         }
     }
@@ -100,8 +101,11 @@ public class Game {
             JOptionPane.showMessageDialog(null, "月底银行发利息了!");
             players.forEach(player -> player.addDeposit((int)(0.1 * player.getDeposit())));
         }
-        for (int i=0;i<stocks.length;i++)
-            stocks[i].tomorrow();
+        if (calendar.get(Calendar.DAY_OF_WEEK)  != Calendar.SATURDAY && calendar.get(Calendar.DAY_OF_WEEK)  != Calendar.SUNDAY) {
+            for (int i = 0; i < stocks.length; i++) {
+                stocks[i].tomorrow();
+            }
+        }
         day++;
     }
 
@@ -227,7 +231,7 @@ public class Game {
 
     public void nextPlayer(int option) {
         if (players.size() == 1) {
-            JOptionPane.showMessageDialog(null, players.get(0).getName()+"获胜!");
+            JOptionPane.showMessageDialog(null, "玩家"+players.get(0).getName()+"获胜!");
             System.exit(0);
         }
         if (currentPlayer == players.size()-1) {
@@ -240,11 +244,14 @@ public class Game {
             currentPlayer %= players.size();
         }
         JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+        int location = players.get(currentPlayer).getLocation();
+        map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]).getView(currentPlayer);
         if (players.get(currentPlayer).getInHospital() != 0) {
             JOptionPane.showMessageDialog(null, "你还在医院里!");
             players.get(currentPlayer).inHospitalminus();
             currentPlayer = (currentPlayer + 1) % players.size();
             JOptionPane.showMessageDialog(null, "现在是玩家"+players.get(currentPlayer).getName()+"的操作时间");
+            map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]).getView(currentPlayer);
         }
     }
 
