@@ -53,8 +53,10 @@ public class MapPanel extends JPanel {
                 curDiceNumber = movementCount+1;
                 serving.removeBarrier();
             } else if (serving instanceof Bank) {
-                ON_BANK = false;
-                serving.serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
+                if (curDiceNumber != movementCount+1) {
+                    ON_BANK = false;
+                    serving.serve(getInstance().getPlayers(), getInstance().getCurrentPlayer(), getInstance().getMap());
+                }
             }
             movementCount++;
             triggerEvent();
