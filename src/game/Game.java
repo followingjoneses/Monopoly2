@@ -54,8 +54,8 @@ public class Game {
 
     public Game() {
         players = new ArrayList<>();
-        setPlayerNumber(3);
-        String[] a = {"1","2", "3"};
+        setPlayerNumber(2);
+        String[] a = {"1","2"};
         setPlayerNames(a);
         players.get(1).setCash(0);
         players.get(1).setDeposit(0);

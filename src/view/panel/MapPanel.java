@@ -115,7 +115,6 @@ public class MapPanel extends JPanel {
 
         @Override
         protected void paintComponent(Graphics g) {
-            System.out.println(1);
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
 
             super.paintComponent(g);

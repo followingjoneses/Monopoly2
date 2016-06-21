@@ -1,6 +1,7 @@
 package object;
 
 import java.math.*;
+import java.util.ArrayList;
 
 /**
  * Created by jzl on 16/4/26.
@@ -8,7 +9,20 @@ import java.math.*;
 public class Stock {
     private String name;
     private int number, redOrBlack;
-    private double price, rate;
+    private double price;
+    private double rate;
+
+    public double getLowestPrice() {
+        return lowestPrice;
+    }
+
+    private double lowestPrice;
+
+    public ArrayList<Double> getPriceList() {
+        return priceList;
+    }
+
+    private ArrayList<Double> priceList = new ArrayList<>();
 
     public Stock(String name, int number) {
         this.name = name;
@@ -16,6 +30,8 @@ public class Stock {
 
         BigDecimal bg = new BigDecimal(Math.random() * 20 + 10).setScale(2, RoundingMode.UP);
         this.price = bg.doubleValue();
+        lowestPrice = price;
+        priceList.add(price);
         bg = new BigDecimal(Math.random() * 0.2 - 0.1).setScale(2, RoundingMode.UP);
         this.rate = bg.doubleValue();
     }
@@ -59,5 +75,9 @@ public class Stock {
         BigDecimal bg = new BigDecimal(tempRate).setScale(2, RoundingMode.UP);
         rate = bg.doubleValue();
         price = new BigDecimal(price * (1 + rate)).setScale(2, RoundingMode.UP).doubleValue();
+        priceList.add(price);
+        if (price < lowestPrice) {
+            lowestPrice = price;
+        }
     }
 }

@@ -77,12 +77,13 @@ public class StockTradeFrame extends JFrame {
         public BuyOrSellFrame(int index) {
             Player player = getInstance().getPlayers().get(getInstance().getCurrentPlayer());
             setLayout(null);
-            setSize(400, 120);
+            setSize(500, 120);
             setTitle("股票");
             JLabel label = new JLabel("你目前持有"+getInstance().getStocks()[index].getName()+player.getStock(index)+"股");
             JButton buy = new JButton("买入");
             JButton sell = new JButton("卖出");
             JButton quit = new JButton("返回");
+            JButton checkTrend = new JButton("走势");
             label.setBounds(10, 10, 150, 20);
             add(label);
             buy.setBounds(70, 40, 60, 20);
@@ -143,6 +144,14 @@ public class StockTradeFrame extends JFrame {
                 }
             });
             add(quit);
+            checkTrend.setBounds(370, 40, 60, 20);
+            checkTrend.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    new StockTrendFrame(index);
+                }
+            });
+            add(checkTrend);
             setLocationRelativeTo(null);
             setVisible(true);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
