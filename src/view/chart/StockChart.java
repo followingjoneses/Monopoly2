@@ -55,32 +55,6 @@ public class StockChart {
         image = jFreeChart.createBufferedImage(600, 300,BufferedImage.TYPE_INT_RGB, null);
     }
 	
-//	public static void refresh(){
-//		jfreechart = ChartFactory.createXYLineChart(
-//				"Trend Chart",
-//				"Day",
-//				"Transaction price",
-//				createDataset(),
-//				PlotOrientation.VERTICAL,
-//				true,
-//				true,
-//				false
-//		);
-//		XYPlot plot = (XYPlot) jfreechart.getPlot();
-//		plot.setBackgroundPaint(Color.WHITE);
-//		ValueAxis rangeAxis = plot.getRangeAxis();
-//		rangeAxis.setLowerBound(Stock.getStock(StockFrame.selectedRow).getLowestPrice()-5);
-//		NumberAxis Yaxis = (NumberAxis) plot.getRangeAxis();
-//		Yaxis.setTickUnit(new NumberTickUnit(1));
-//
-//		NumberAxis Xaxis = (NumberAxis)plot.getDomainAxis();
-//		Xaxis.setTickUnit(new NumberTickUnit(1));
-//
-//		XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer)plot.getRenderer();
-//		xylineandshaperenderer.setBaseShapesVisible(true);
-//		image = jfreechart.createBufferedImage(600, 300,BufferedImage.TYPE_INT_RGB, null);
-//	}
-	
 	private static XYDataset createDataset(int index){
 		XYSeries xySeries = new XYSeries("");
         ArrayList<Double> priceList = getInstance().getStocks()[index].getPriceList();

@@ -24,13 +24,6 @@ public class Barrier extends Item {
     public void use(Stock[] stocks, Map map, ArrayList<Player> players, int currentPlayer){
         Player player = players.get(currentPlayer);
 
-//        System.out.print(SET_BARRIER);
-//        Scanner sc = new Scanner(System.in);
-//
-//        String option = sc.next();
-//
-//        if (option.equals("x"))
-//            return;
         String option = JOptionPane.showInputDialog(null, "请属于你想设置路障的位置(8步以内,正为顺时针,负为逆时针)", "路障", JOptionPane.INFORMATION_MESSAGE);
 
         try {
@@ -40,15 +33,12 @@ public class Barrier extends Item {
                 int location = (player.getLocation() + step + Map.MAP_LENGTH) % Map.MAP_LENGTH;
                 Cell cell = map.getCell(Map.COORDINATE[location][0], Map.COORDINATE[location][1]);
                 cell.getServing().setBarrier();
-//                System.out.print(USE);
                 JOptionPane.showMessageDialog(null, "你使用了路障", "路障", JOptionPane.INFORMATION_MESSAGE);
             }
             else {
-//                System.out.print(WARNING);
                 JOptionPane.showMessageDialog(null, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
-//            System.out.print(WARNING);
             JOptionPane.showMessageDialog(null, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
         }
     }

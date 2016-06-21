@@ -7,7 +7,6 @@ import game.Map;
 import object.Bank;
 import object.Player;
 import object.Serving;
-import view.frame.MainFrame;
 import view.label.*;
 
 import javax.swing.*;
