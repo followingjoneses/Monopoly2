@@ -64,6 +64,8 @@ public class SettingFrame extends JFrame {
                                 names[i] = playerTextFields[i].getText();
                             }
                             getInstance().setPlayerNames(names);
+                            getInstance().buildMap();
+                            new MainFrame();
                         } else {
                             JOptionPane.showMessageDialog(frame, "请输入玩家姓名", "错误", JOptionPane.ERROR_MESSAGE);
                         }

@@ -1,6 +1,7 @@
 package game;
 
 import object.*;
+import view.frame.SettingFrame;
 
 import javax.swing.*;
 import java.util.*;
@@ -10,27 +11,21 @@ import java.text.*;
  * Created by jzl on 16/4/2.
  */
 public class Game {
-    private static final Game GAME = new Game();
+    private static Game GAME = new Game();
 
-    private static final String PLAYER_NUMBER = "请设置玩家数量(2-4):\n",
-        NAME_INPUT = "请输入玩家%d的名字:\n",
-        SET_LIFETIME = "请设置游戏时间(天数):\n",
-        GAME_START = "游戏开始\n",
-        GAME_OVER = "玩家%s获胜!\n",
-        WARNING = "请输入符合要求的字符\n";
     private static final int MAX_PLAYER = 4,
         MIN_STOCK = 10;
     public static final String[] STOCK_NAME =
             {"Nike", "Oracle", "Apple", "Citi", "Fort",
                     "Boeing", "Toyota", "Intel", "Yahoo", "Cisco"};
 
-    private int lifetime, day, playerNumber;
+    private int lifetime, day = 1, playerNumber;
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private int currentPlayer;
     private Calendar calendar;
 
@@ -53,13 +48,6 @@ public class Game {
     private Stock[] stocks;
 
     public Game() {
-        players = new ArrayList<>();
-        setPlayerNumber(2);
-        String[] a = {"1","2"};
-        setPlayerNames(a);
-        players.get(1).setCash(0);
-        players.get(1).setDeposit(0);
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
         calendar = Calendar.getInstance();
         try {
@@ -71,13 +59,6 @@ public class Game {
 
         menu = new Menu();
         map = new Map();
-        buildMap();
-
-//        stocks = new Stock[MIN_STOCK];
-//        for (int i=0;i<MIN_STOCK;i++) {
-//            System.out.println(stocks);
-//            stocks[i] = new Stock(STOCK_NAME[i], i);
-//        }
     }
 
     public void initialStock() {
@@ -96,6 +77,20 @@ public class Game {
     }
 
     public void tomorrow() {
+        day++;
+        if (day > lifetime) {
+            JOptionPane.showMessageDialog(null, "时间到");
+            int maxProperty = 0, winner = 0;
+            for (int i=0;i<playerNumber;i++) {
+                int property = players.get(i).getCash()+players.get(i).getDeposit()+players.get(i).getHouseProperty();
+                if (property>maxProperty) {
+                    maxProperty = property;
+                    winner = i;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "玩家"+players.get(winner).getName()+"资产最多,获胜!");
+            System.exit(0);
+        }
         calendar.add(Calendar.DATE, 1);
         if (calendar.get(Calendar.DATE)==calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
             JOptionPane.showMessageDialog(null, "月底银行发利息了!");
@@ -106,7 +101,6 @@ public class Game {
                 stocks[i].tomorrow();
             }
         }
-        day++;
     }
 
     public void setPlayerNumber(int playerNumber) {
@@ -127,41 +121,21 @@ public class Game {
     }
 
     public void startGame() {
-        buildMap();
-        System.out.print(GAME_START);
-
-        while (players.size()!=1 && day < lifetime) {
-            for (int i=0;i<players.size();i++) {
-                int option = -1;
-                while (option != 7 && option != 6)
-                    option = menu.printMainMenu(stocks, map, calendar, players, currentPlayer);
-                nextPlayer(option);
+        String input = JOptionPane.showInputDialog(null, "请输入玩家人数(2-4)", "设置", JOptionPane.WARNING_MESSAGE);
+        try {
+            int playerNumber = Integer.parseInt(input);
+            if (playerNumber<2 || playerNumber>4)
+                throw new NumberFormatException();
+            else {
+                getInstance().setPlayerNumber(playerNumber);
+                new SettingFrame(playerNumber);
             }
-            tomorrow();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "输入有误", "错误", JOptionPane.ERROR_MESSAGE);
         }
-
-        String winner;
-        if (players.size() == 1)
-            winner = players.get(0).getName();
-        else {
-            int maxProperty = 0, max = 0;
-            for (int i=0;i<players.size();i++) {
-                Player player = players.get(i);
-                int property = player.getDeposit() + player.getCash() + player.getHouseProperty();
-                if (property > maxProperty) {
-                    maxProperty = property;
-                    max = i;
-                }
-            }
-
-            winner = players.get(max).getName();
-            System.out.println("时间到");
-        }
-
-        System.out.printf(GAME_OVER, winner);
     }
 
-    private void buildMap() {
+    public void buildMap() {
         int landNameRow = 0, landNameColumn = 0;
 
         for (int y=0;y<Map.MAP_HEIGHT;y++) {

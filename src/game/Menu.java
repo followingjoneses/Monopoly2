@@ -89,40 +89,6 @@ public class Menu {
         return option;
     }
 
-//    private void printSubmenu(Calendar calendar, Stock[] stocks, Map map, int option, ArrayList<Player> players, int currentPlayer) {
-//        Player player = players.get(currentPlayer);
-//
-//        switch (option) {
-//            case 0:
-//                map.printCurMap(currentPlayer);
-//                break;
-//            case 1:
-//                map.printInitialMap();
-//                break;
-//            case 2:
-//                printUseItem(stocks, map, players, currentPlayer);
-//                break;
-//            case 3:
-//                showBarriers(map, players, currentPlayer);
-//                break;
-//            case 4:
-//                checkCellInfo(map, players, currentPlayer);
-//                break;
-//            case 5:
-//                printPlayerProperties(players);
-//                break;
-//            case 6:
-//                rollDice(map, players, currentPlayer);
-//                break;
-//            case 7:
-//                giveUp(map, players, currentPlayer);
-//                break;
-//            case 8:
-//                tradeStock(calendar, stocks, players, currentPlayer);
-//                break;
-//        }
-//    }
-
     public void showBarriers(Map map, ArrayList<Player> players, int currentPlayer) {
         Player player = players.get(currentPlayer);
         int location = player.getLocation();
@@ -229,7 +195,6 @@ public class Menu {
         Cell curCell = map.getCell(Map.COORDINATE[player.getLocation()][0], Map.COORDINATE[player.getLocation()][1]);
 
         curCell.addView(player);
-//        map.printCurMap(currentPlayer);
 
         curCell.getServing().serve(players, currentPlayer, map);
     }
